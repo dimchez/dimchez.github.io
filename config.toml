@@ -1,0 +1,21 @@
+baseUrl = "http://dimchez.com"
+languageCode = "en-us"
+title = "Notes from day to day work"
+theme = "cocoa"
+
+[permalinks]
+  fixed = ":title/"
+  blog = "blog/:slug/"
+
+[Params]
+  # Date format, used by several themes
+  DateForm = "Mon, Jan 2, 2006"
+  DateFormat = "Mon, Jan 2, 2006"
+  DateFormFull = "Mon, Jan 2, 2006"
+  Author = "Dmitry Demyankov"
+  CacheBuster = false
+  Description = "Notes from day to day work"
+  Email = "dmitry.demyankov@gmail.com"
+  GitHub = "//github.com/dimchez"
+  LinkedIn = "//linkedin.com/in/dmitry-demyankov-70261754"
+  Twitter = "//twitter.com/dimchez"
