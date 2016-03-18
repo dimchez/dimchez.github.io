@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Notes from day to day work</title>
+    <link>http://dimchez.com/</link>
+    <description>Recent content on Notes from day to day work</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 18 Mar 2016 06:44:23 +0100</lastBuildDate>
+    <atom:link href="http://dimchez.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>About</title>
+      <link>http://dimchez.com/about/</link>
+      <pubDate>Fri, 18 Mar 2016 06:44:23 +0100</pubDate>
+      
+      <guid>http://dimchez.com/about/</guid>
+      <description>&lt;p&gt;Some words about me.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Using babel-polyfill with Karma, Webpack and ES6</title>
+      <link>http://dimchez.com/blog/using-babel-polyfill-with-karma-webpack-and-es6/</link>
+      <pubDate>Thu, 17 Mar 2016 20:41:55 +0100</pubDate>
+      
+      <guid>http://dimchez.com/blog/using-babel-polyfill-with-karma-webpack-and-es6/</guid>
+      <description>
+
+&lt;h1 id=&#34;enabling-babel-polyfill-when-running-unit-tests-using-karma-phantomjs-webpack-and-es6:3ee0811567a12162673656903c4fad16&#34;&gt;Enabling babel-polyfill when running unit tests using Karma, PhantomJS, Webpack and ES6&lt;/h1&gt;
+
+&lt;p&gt;Unit tests started failing when &lt;a href=&#34;https://lodash.com/docs#assign&#34;&gt;lodash&amp;rsquo;s assign&lt;/a&gt; was replaced with &lt;a href=&#34;https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign&#34;&gt;Object.assign()&lt;/a&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&#39;undefined&#39; is not a function (evaluating &#39;Object.assign(...)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Tests are bundled with Webpack first and then executed using Karma as test runner and PhantomJS.&lt;/p&gt;
+
+&lt;p&gt;Adding the following in &lt;code&gt;karma.config.js&lt;/code&gt; solved the problem:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;files: [
+  &#39;node_modules/babel-polyfill/dist/polyfill.js&#39;,
+  ...
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Hint on how to fix this issue was in &lt;a href=&#34;https://github.com/babel/karma-babel-preprocessor#polyfill&#34;&gt;karma-babel-preprocessor&lt;/a&gt; plugin documentation. Polyfill seems to work fine even though plugin itself is not used in the project.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

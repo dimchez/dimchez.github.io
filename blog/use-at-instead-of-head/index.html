@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<base href="http://dimchez.com">
+<title>
+
+
+     Use @ instead of HEAD 
+
+</title>
+<link rel="canonical" href="http://dimchez.com/blog/use-at-instead-of-head/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/dimchez.com';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/reset.css?1458245440">
+<link rel="stylesheet" href="/css/pygments.css?1458245440">
+<link rel="stylesheet" href="/css/main.css?1458245440">
+
+
+
+
+
+
+<link rel="shortcut icon"
+
+    href="/img/favicon.ico"
+
+>
+
+
+
+</head>
+
+
+<body lang="">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="/"><div class="name"></div></a>
+            <nav>
+                <ul>
+                    <a href="/blog/"><li>Blog</li></a>
+                    <a href="/about/"><li>About</li></a>
+                    <a href="/code/"><li>Code</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+        
+        
+
+        
+
+        
+
+        
+
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Use @ instead of HEAD
+
+</div>
+
+                    <div class="initials"><a href="http://dimchez.com"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Tue, Aug 25, 2015">Tue, Aug 25, 2015</div>
+                    <div class="reading-time"><div class="middot"></div>1 minute read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p>I recently discovered that from git version <a href="https://github.com/git/git/blob/master/Documentation/RelNotes/1.8.5.txt#L100">1.8.5</a> onwards, <code>@</code> can replace <code>HEAD</code>:</p>
+
+
+$ git reset --hard @~2
+$ git rebase -i @~10
+$ git diff @~2..@~3
+
+
+<p>And also in most scenarios <code>HEAD</code> can be left out completely, so you can say:</p>
+
+
+$ git reset -- @{2}
+
+
+<p>instead of:</p>
+
+
+$ git reset -- HEAD@{2}
+
+
+<p>It takes some getting used to, but it&rsquo;s definitely faster than typing <code>HEAD</code>.</p>
+
+                <br>
+                <p><a href="/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+</body>
+</html>
+
