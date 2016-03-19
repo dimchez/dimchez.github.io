@@ -5,7 +5,7 @@
 
 <body lang="{{ .Site.Params.Lang }}">
 
-<section class="header"> 
+<section class="header">
     <div class="container">
         <div class="content">
             <a href="/"><div class="name">{{ .Site.Params.Author }}</div></a>
@@ -14,6 +14,7 @@
                     <a href="/blog/"><li>Blog</li></a>
                     <a href="/about/"><li>About</li></a>
                     <a href="/code/"><li>Code</li></a>
+                    <a href="/index.xml"><li>RSS</li></a>
                 </ul>
             </nav>
         </div>
@@ -29,7 +30,7 @@
                 <i class="icon ion-social-github"></i>
             </a>
         {{ end }}
-        
+
         {{ if .Site.Params.Twitter }}
             <a href="{{ .Site.Params.Twitter }}" target="_blank">
                 <i class="icon ion-social-twitter"></i>
