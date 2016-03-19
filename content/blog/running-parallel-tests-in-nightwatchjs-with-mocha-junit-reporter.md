@@ -1,6 +1,6 @@
 +++
 date = "2016-03-18T10:18:43+01:00"
-draft = true
+draft = false
 title = "Running parallel end-to-end tests in NightwatchJS with mocha-junit-reporter"
 
 +++
