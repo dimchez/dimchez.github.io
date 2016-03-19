@@ -6,8 +6,41 @@
     <description>Recent content in Blogs on Notes from day to day work</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 17 Mar 2016 20:41:55 +0100</lastBuildDate>
+    <lastBuildDate>Fri, 18 Mar 2016 10:18:43 +0100</lastBuildDate>
     <atom:link href="http://dimchez.com/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Running parallel end-to-end tests in NightwatchJS with mocha-junit-reporter</title>
+      <link>http://dimchez.com/blog/running-parallel-end-to-end-tests-in-nightwatchjs-with-mocha-junit-reporter/</link>
+      <pubDate>Fri, 18 Mar 2016 10:18:43 +0100</pubDate>
+      
+      <guid>http://dimchez.com/blog/running-parallel-end-to-end-tests-in-nightwatchjs-with-mocha-junit-reporter/</guid>
+      <description>&lt;p&gt;For implementation of our end-to-end tests for frontend applications at &lt;a href=&#34;https://www.nordnet.se&#34;&gt;Nordnet&lt;/a&gt; we rely on &lt;a href=&#34;https://nightwatchjs.org&#34;&gt;NightwatchJS&lt;/a&gt;. Tests are executed against &lt;a href=&#34;https://github.com/SeleniumHQ/selenium/wiki/Grid2&#34;&gt;Selenium Grid&lt;/a&gt; which has several nodes running different browsers and operating systems. As the number of tests is growing in each project so does the time it takes to execute those tests. For some projects it might take from half an hour and up to an hour for tests to either succeed or fail. During that time project is stalled in CI environment and cannot be moved further in the delivery pipeline. One obvious solution to this problem was to try to run end-to-end tests in parallel.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://nightwatchjs.org&#34;&gt;NightwatchJS&lt;/a&gt; allows parallel execution of tests in multiple environments (e.g. against different browsers), see &lt;a href=&#34;http://nightwatchjs.org/guide#parallel-running&#34;&gt;Parallel Running&lt;/a&gt; section in &lt;a href=&#34;http://nightwatchjs.org/guide&#34;&gt;NightwatchJS Developer Guide&lt;/a&gt;. Though this is something we need to have as well, it won&amp;rsquo;t increase speed of execution of tests in general. End-to-end tests will still be executed 30+ minutes, just in different browsers at the same time. Since &lt;code&gt;v0.7&lt;/code&gt; however there is a new feature that allows the tests to be run in parallel. From &lt;a href=&#34;http://nightwatchjs.org/guide#parallel-running&#34;&gt;NightwatchJS Parallel Running&lt;/a&gt; documentation:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&amp;hellip;the test runner will launch a configurable number of child processes and then distribute the loaded tests over to be ran in parallel.&lt;/p&gt;
+
+&lt;p&gt;Test concurrency is done at the file level. Each test file will fill a test worker slot. Individual tests/steps in a test file will not run concurrently.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;In the simplest case test workers can be enabled by adding the following in &lt;code&gt;nigthwatch.json&lt;/code&gt; config&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;test_workers&amp;quot;: true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Number of test workers can also be configured. See &lt;a href=&#34;http://nightwatchjs.org/guide#parallel-running&#34;&gt;NightwatchJS docs&lt;/a&gt; for details on how to do it.&lt;/p&gt;
+
+&lt;p&gt;One obvious requirement for implementation of end-to-end tests for this feature to work efficiently is not to put all tests in one file, but to split them up in multiple test files. Then individual test files could be executed by separate test workers.&lt;/p&gt;
+
+&lt;p&gt;This looked promising and I&amp;rsquo;ve started testing this feature on one of our projects. An unfortunate outcome of this testing was that we can&amp;rsquo;t use this feature out-of-the-box with the way our tests are setup, executed and how test results are processed. The problem is that we&amp;rsquo;ve decided to run NightwatchJS tests &lt;a href=&#34;http://nightwatchjs.org/guide#using-mocha&#34;&gt;using Mocha&lt;/a&gt;. Decision was based on a fact that we are using &lt;a href=&#34;http://mochajs.org&#34;&gt;Mocha&lt;/a&gt; to structure our unit tests and it would be good to have same structure in our end-to-end tests as well. For automated build and deployment processes we are using &lt;a href=&#34;https://jenkins-ci.org/&#34;&gt;Jenkins&lt;/a&gt;. To know whether to fail a specific build or mark it as successful Jenkins checks generated JUnit XML test results reports. We are using &lt;a href=&#34;https://github.com/michaelleeallen/mocha-junit-reporter&#34;&gt;mocha-junit-reporter&lt;/a&gt; for generating XML reports for NightwatchJS tests. And this is where the problem is - test results reports are written in the same test-results.xml file. Essentially, the last test worker to complete overrides all test results of previous tests. This makes it impossible to track the status of end-to-end tests.&lt;/p&gt;
+
+&lt;p&gt;What can be done about it? Well, I&amp;rsquo;m working on PR for &lt;a href=&#34;https://github.com/michaelleeallen/mocha-junit-reporter&#34;&gt;mocha-junit-reporter&lt;/a&gt; to be able to specify a hash in a file name. That way each test worker would write test results in its own XML file and then Jenkins would have to evaluate multiple files. Another alternative is to detect that file already exists and append test results instead of overriding file contents. That would be a better option in case Jenkins (or Jenkins JUnit plugin) can&amp;rsquo;t process multiple test results files.&lt;/p&gt;
+
+&lt;p&gt;Stay tuned for more updates on the topic!&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Using babel-polyfill with Karma, Webpack and ES6</title>

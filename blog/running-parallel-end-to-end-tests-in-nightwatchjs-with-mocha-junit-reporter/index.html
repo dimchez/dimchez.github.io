@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Notes from day to day work">
+
+<base href="http://dimchez.com">
+<title>
+
+
+     Running parallel end-to-end tests in NightwatchJS with mocha-junit-reporter 
+
+</title>
+<link rel="canonical" href="http://dimchez.com/blog/running-parallel-end-to-end-tests-in-nightwatchjs-with-mocha-junit-reporter/">
+
+
+<script type="text/javascript">
+    var baseURL = 'http:\/\/dimchez.com';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/reset.css?1458376158">
+<link rel="stylesheet" href="/css/pygments.css?1458376158">
+<link rel="stylesheet" href="/css/main.css?1458376158">
+
+
+
+
+
+
+<link rel="shortcut icon"
+
+    href="/img/favicon.ico"
+
+>
+
+
+
+</head>
+
+
+<body lang="">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            <a href="/"><div class="name">Dmitry Demyankov</div></a>
+            <nav>
+                <ul>
+                    <a href="/blog/"><li>Blog</li></a>
+                    <a href="/about/"><li>About</li></a>
+                    <a href="/code/"><li>Code</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/dimchez" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/dimchez" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/dmitry-demyankov-70261754" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+            <a href="mailto:dmitry.demyankov@gmail.com">
+                <i class="icon ion-ios-email larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Running parallel end-to-end tests in NightwatchJS with mocha-junit-reporter
+
+</div>
+
+                    <div class="initials"><a href="http://dimchez.com"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Fri, Mar 18, 2016">Fri, Mar 18, 2016</div>
+                    <div class="reading-time"><div class="middot"></div>3 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p>For implementation of our end-to-end tests for frontend applications at <a href="https://www.nordnet.se">Nordnet</a> we rely on <a href="https://nightwatchjs.org">NightwatchJS</a>. Tests are executed against <a href="https://github.com/SeleniumHQ/selenium/wiki/Grid2">Selenium Grid</a> which has several nodes running different browsers and operating systems. As the number of tests is growing in each project so does the time it takes to execute those tests. For some projects it might take from half an hour and up to an hour for tests to either succeed or fail. During that time project is stalled in CI environment and cannot be moved further in the delivery pipeline. One obvious solution to this problem was to try to run end-to-end tests in parallel.</p>
+
+<p><a href="https://nightwatchjs.org">NightwatchJS</a> allows parallel execution of tests in multiple environments (e.g. against different browsers), see <a href="http://nightwatchjs.org/guide#parallel-running">Parallel Running</a> section in <a href="http://nightwatchjs.org/guide">NightwatchJS Developer Guide</a>. Though this is something we need to have as well, it won&rsquo;t increase speed of execution of tests in general. End-to-end tests will still be executed 30+ minutes, just in different browsers at the same time. Since <code>v0.7</code> however there is a new feature that allows the tests to be run in parallel. From <a href="http://nightwatchjs.org/guide#parallel-running">NightwatchJS Parallel Running</a> documentation:</p>
+
+<blockquote>
+<p>&hellip;the test runner will launch a configurable number of child processes and then distribute the loaded tests over to be ran in parallel.</p>
+
+<p>Test concurrency is done at the file level. Each test file will fill a test worker slot. Individual tests/steps in a test file will not run concurrently.</p>
+</blockquote>
+
+<p>In the simplest case test workers can be enabled by adding the following in <code>nigthwatch.json</code> config</p>
+
+<pre><code>&quot;test_workers&quot;: true
+</code></pre>
+
+<p>Number of test workers can also be configured. See <a href="http://nightwatchjs.org/guide#parallel-running">NightwatchJS docs</a> for details on how to do it.</p>
+
+<p>One obvious requirement for implementation of end-to-end tests for this feature to work efficiently is not to put all tests in one file, but to split them up in multiple test files. Then individual test files could be executed by separate test workers.</p>
+
+<p>This looked promising and I&rsquo;ve started testing this feature on one of our projects. An unfortunate outcome of this testing was that we can&rsquo;t use this feature out-of-the-box with the way our tests are setup, executed and how test results are processed. The problem is that we&rsquo;ve decided to run NightwatchJS tests <a href="http://nightwatchjs.org/guide#using-mocha">using Mocha</a>. Decision was based on a fact that we are using <a href="http://mochajs.org">Mocha</a> to structure our unit tests and it would be good to have same structure in our end-to-end tests as well. For automated build and deployment processes we are using <a href="https://jenkins-ci.org/">Jenkins</a>. To know whether to fail a specific build or mark it as successful Jenkins checks generated JUnit XML test results reports. We are using <a href="https://github.com/michaelleeallen/mocha-junit-reporter">mocha-junit-reporter</a> for generating XML reports for NightwatchJS tests. And this is where the problem is - test results reports are written in the same test-results.xml file. Essentially, the last test worker to complete overrides all test results of previous tests. This makes it impossible to track the status of end-to-end tests.</p>
+
+<p>What can be done about it? Well, I&rsquo;m working on PR for <a href="https://github.com/michaelleeallen/mocha-junit-reporter">mocha-junit-reporter</a> to be able to specify a hash in a file name. That way each test worker would write test results in its own XML file and then Jenkins would have to evaluate multiple files. Another alternative is to detect that file already exists and append test results instead of overriding file contents. That would be a better option in case Jenkins (or Jenkins JUnit plugin) can&rsquo;t process multiple test results files.</p>
+
+<p>Stay tuned for more updates on the topic!</p>
+
+                <br>
+                <p><a href="/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+</body>
+</html>
+

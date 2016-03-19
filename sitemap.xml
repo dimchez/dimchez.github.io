@@ -3,8 +3,13 @@
   
   <url>
     <loc>http://dimchez.com/</loc>
-    <lastmod>2016-03-18T06:44:23+01:00</lastmod>
+    <lastmod>2016-03-18T10:18:43+01:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://dimchez.com/blog/running-parallel-end-to-end-tests-in-nightwatchjs-with-mocha-junit-reporter/</loc>
+    <lastmod>2016-03-18T10:18:43+01:00</lastmod>
   </url>
   
   <url>
