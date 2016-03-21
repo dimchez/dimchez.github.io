@@ -31,9 +31,9 @@
 
 
 
-<link rel="stylesheet" href="/css/reset.css?1458387693">
-<link rel="stylesheet" href="/css/pygments.css?1458387693">
-<link rel="stylesheet" href="/css/main.css?1458387693">
+<link rel="stylesheet" href="/css/reset.css?1458591575">
+<link rel="stylesheet" href="/css/pygments.css?1458591575">
+<link rel="stylesheet" href="/css/main.css?1458591575">
 
 
 
@@ -125,6 +125,10 @@
             </div>
             <div class="markdown">
                 <p>As follow up to <a href="http://dimchez.com/blog/running-parallel-end-to-end-tests-in-nightwatchjs-with-mocha-junit-reporter/">my previous post</a>, I&rsquo;ve added <a href="https://github.com/michaelleeallen/mocha-junit-reporter/pull/29">PR</a> for <code>mocha-junit-reporter</code>. Hopefully it will be approved. Otherwise I can create a small wrapper around <code>mocha-junit-reporter</code> that allows writing test results in different files when executed in parallel. Basically, the only thing that should be modified is <code>filePath</code> argument in <a href="https://github.com/michaelleeallen/mocha-junit-reporter/blob/master/index.js#L233">writeXmlToDisk</a> function. This should be a rather easy fix.</p>
+
+<blockquote>
+<p>UPDATE (21/03/2016): My PR was accepted and version <code>1.10.0</code> of <code>mocha-junit-reporter</code> was published. Hopefully during our next sprint I will get some time to setup our Selenium grid to run end-to-end tests in parallel.</p>
+</blockquote>
 
                 <br>
                 <p><a href="/blog/">Back to posts</a></p>

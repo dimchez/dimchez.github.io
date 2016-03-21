@@ -16,6 +16,10 @@
       
       <guid>http://dimchez.com/blog/mocha-junit-reporter-pull-request/</guid>
       <description>&lt;p&gt;As follow up to &lt;a href=&#34;http://dimchez.com/blog/running-parallel-end-to-end-tests-in-nightwatchjs-with-mocha-junit-reporter/&#34;&gt;my previous post&lt;/a&gt;, I&amp;rsquo;ve added &lt;a href=&#34;https://github.com/michaelleeallen/mocha-junit-reporter/pull/29&#34;&gt;PR&lt;/a&gt; for &lt;code&gt;mocha-junit-reporter&lt;/code&gt;. Hopefully it will be approved. Otherwise I can create a small wrapper around &lt;code&gt;mocha-junit-reporter&lt;/code&gt; that allows writing test results in different files when executed in parallel. Basically, the only thing that should be modified is &lt;code&gt;filePath&lt;/code&gt; argument in &lt;a href=&#34;https://github.com/michaelleeallen/mocha-junit-reporter/blob/master/index.js#L233&#34;&gt;writeXmlToDisk&lt;/a&gt; function. This should be a rather easy fix.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;UPDATE (21/03/2016): My PR was accepted and version &lt;code&gt;1.10.0&lt;/code&gt; of &lt;code&gt;mocha-junit-reporter&lt;/code&gt; was published. Hopefully during our next sprint I will get some time to setup our Selenium grid to run end-to-end tests in parallel.&lt;/p&gt;
+&lt;/blockquote&gt;
 </description>
     </item>
     
