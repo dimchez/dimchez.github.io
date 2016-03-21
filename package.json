@@ -1,0 +1,24 @@
+{
+  "name": "dimchez.github.io",
+  "version": "1.0.0",
+  "description": "Notes from day to day work",
+  "scripts": {
+    "build": "hugo",
+    "watch": "hugo server -w",
+    "watch:draft": "hugo server -w -D",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dimchez/dimchez.github.io.git"
+  },
+  "keywords": [
+    "dimchez",
+    "notes",
+    "blog",
+    "work"
+  ],
+  "author": "Dmitry Demyankov <dmitry.demyankov@gmail.com>",
+  "license": "MIT",
+  "homepage": "http://dimchez.com"
+}
