@@ -6,8 +6,20 @@
     <description>Recent content in Blogs on Notes from day to day work</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 19 Mar 2016 09:43:30 +0100</lastBuildDate>
+    <lastBuildDate>Mon, 21 Mar 2016 21:43:24 +0100</lastBuildDate>
     <atom:link href="http://dimchez.com/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>SSL for the blog</title>
+      <link>http://dimchez.com/blog/ssl-for-the-blog/</link>
+      <pubDate>Mon, 21 Mar 2016 21:43:24 +0100</pubDate>
+      
+      <guid>http://dimchez.com/blog/ssl-for-the-blog/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;ve decided that it would be good to have this blog running on &lt;code&gt;https://&lt;/code&gt; instead of plain &lt;code&gt;http://&lt;/code&gt;. A friend of mine, &lt;a href=&#34;https://twitter.com/iamstarkov&#34;&gt;Vladimir Starkov&lt;/a&gt;, suggested to look into &lt;a href=&#34;https://www.cloudflare.com&#34;&gt;Cloudfare&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Setting up &lt;code&gt;https://&lt;/code&gt; turned out to be a rather simple task. I&amp;rsquo;ve followed &lt;a href=&#34;https://www.benburwell.com/posts/configuring-cloudflare-universal-ssl/&#34;&gt;this&lt;/a&gt; and &lt;a href=&#34;https://support.cloudflare.com/hc/en-us/articles/200171566-How-do-I-change-my-domain-nameservers-GoDaddy-&#34;&gt;this&lt;/a&gt; guides to get the job done. It seems that some of the configuration options at least on GoDaddy are sort of hidden away. At least I didn&amp;rsquo;t see at first where to change nameservers. Well, I guess that&amp;rsquo;s just because I&amp;rsquo;m really not familiar with their admin panel. Cloudfare&amp;rsquo;s UI is rather nice compared to GoDaddy though. I&amp;rsquo;ve found all I needed to find there quite fast.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>mocha-junit-reporter pull request</title>
