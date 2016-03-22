@@ -4,6 +4,7 @@
   "description": "Notes from day to day work",
   "scripts": {
     "build": "hugo",
+    "new": "hugo new --",
     "watch": "hugo server -w",
     "watch:draft": "hugo server -w -D",
     "test": "echo \"Error: no test specified\" && exit 1"
