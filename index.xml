@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Notes from day to day work</title>
-    <link>http://dimchez.com/</link>
+    <link>https://dimchez.com/</link>
     <description>Recent content on Notes from day to day work</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 21 Mar 2016 21:43:24 +0100</lastBuildDate>
-    <atom:link href="http://dimchez.com/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://dimchez.com/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>SSL for the blog</title>
-      <link>http://dimchez.com/blog/ssl-for-the-blog/</link>
+      <link>https://dimchez.com/blog/ssl-for-the-blog/</link>
       <pubDate>Mon, 21 Mar 2016 21:43:24 +0100</pubDate>
       
-      <guid>http://dimchez.com/blog/ssl-for-the-blog/</guid>
+      <guid>https://dimchez.com/blog/ssl-for-the-blog/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve decided that it would be good to have this blog running on &lt;code&gt;https://&lt;/code&gt; instead of plain &lt;code&gt;http://&lt;/code&gt;. A friend of mine, &lt;a href=&#34;https://twitter.com/iamstarkov&#34;&gt;Vladimir Starkov&lt;/a&gt;, suggested to look into &lt;a href=&#34;https://www.cloudflare.com&#34;&gt;Cloudfare&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Setting up &lt;code&gt;https://&lt;/code&gt; turned out to be a rather simple task. I&amp;rsquo;ve followed &lt;a href=&#34;https://www.benburwell.com/posts/configuring-cloudflare-universal-ssl/&#34;&gt;this&lt;/a&gt; and &lt;a href=&#34;https://support.cloudflare.com/hc/en-us/articles/200171566-How-do-I-change-my-domain-nameservers-GoDaddy-&#34;&gt;this&lt;/a&gt; guides to get the job done. It seems that some of the configuration options at least on GoDaddy are sort of hidden away. At least I didn&amp;rsquo;t see at first where to change nameservers. Well, I guess that&amp;rsquo;s just because I&amp;rsquo;m really not familiar with their admin panel. Cloudfare&amp;rsquo;s UI is rather nice compared to GoDaddy though. I&amp;rsquo;ve found all I needed to find there quite fast.&lt;/p&gt;
@@ -23,10 +23,10 @@
     
     <item>
       <title>mocha-junit-reporter pull request</title>
-      <link>http://dimchez.com/blog/mocha-junit-reporter-pull-request/</link>
+      <link>https://dimchez.com/blog/mocha-junit-reporter-pull-request/</link>
       <pubDate>Sat, 19 Mar 2016 09:43:30 +0100</pubDate>
       
-      <guid>http://dimchez.com/blog/mocha-junit-reporter-pull-request/</guid>
+      <guid>https://dimchez.com/blog/mocha-junit-reporter-pull-request/</guid>
       <description>&lt;p&gt;As follow up to &lt;a href=&#34;http://dimchez.com/blog/running-parallel-end-to-end-tests-in-nightwatchjs-with-mocha-junit-reporter/&#34;&gt;my previous post&lt;/a&gt;, I&amp;rsquo;ve added &lt;a href=&#34;https://github.com/michaelleeallen/mocha-junit-reporter/pull/29&#34;&gt;PR&lt;/a&gt; for &lt;code&gt;mocha-junit-reporter&lt;/code&gt;. Hopefully it will be approved. Otherwise I can create a small wrapper around &lt;code&gt;mocha-junit-reporter&lt;/code&gt; that allows writing test results in different files when executed in parallel. Basically, the only thing that should be modified is &lt;code&gt;filePath&lt;/code&gt; argument in &lt;a href=&#34;https://github.com/michaelleeallen/mocha-junit-reporter/blob/master/index.js#L233&#34;&gt;writeXmlToDisk&lt;/a&gt; function. This should be a rather easy fix.&lt;/p&gt;
 
 &lt;blockquote&gt;
@@ -37,10 +37,10 @@
     
     <item>
       <title>Running parallel end-to-end tests in NightwatchJS with mocha-junit-reporter</title>
-      <link>http://dimchez.com/blog/running-parallel-end-to-end-tests-in-nightwatchjs-with-mocha-junit-reporter/</link>
+      <link>https://dimchez.com/blog/running-parallel-end-to-end-tests-in-nightwatchjs-with-mocha-junit-reporter/</link>
       <pubDate>Fri, 18 Mar 2016 10:18:43 +0100</pubDate>
       
-      <guid>http://dimchez.com/blog/running-parallel-end-to-end-tests-in-nightwatchjs-with-mocha-junit-reporter/</guid>
+      <guid>https://dimchez.com/blog/running-parallel-end-to-end-tests-in-nightwatchjs-with-mocha-junit-reporter/</guid>
       <description>&lt;p&gt;For implementation of our end-to-end tests for frontend applications at &lt;a href=&#34;https://www.nordnet.se&#34;&gt;Nordnet&lt;/a&gt; we rely on &lt;a href=&#34;https://nightwatchjs.org&#34;&gt;NightwatchJS&lt;/a&gt;. Tests are executed against &lt;a href=&#34;https://github.com/SeleniumHQ/selenium/wiki/Grid2&#34;&gt;Selenium Grid&lt;/a&gt; which has several nodes running different browsers and operating systems. As the number of tests is growing in each project so does the time it takes to execute those tests. For some projects it might take from half an hour and up to an hour for tests to either succeed or fail. During that time project is stalled in CI environment and cannot be moved further in the delivery pipeline. One obvious solution to this problem was to try to run end-to-end tests in parallel.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://nightwatchjs.org&#34;&gt;NightwatchJS&lt;/a&gt; allows parallel execution of tests in multiple environments (e.g. against different browsers), see &lt;a href=&#34;http://nightwatchjs.org/guide#parallel-running&#34;&gt;Parallel Running&lt;/a&gt; section in &lt;a href=&#34;http://nightwatchjs.org/guide&#34;&gt;NightwatchJS Developer Guide&lt;/a&gt;. Though this is something we need to have as well, it won&amp;rsquo;t increase speed of execution of tests in general. End-to-end tests will still be executed 30+ minutes, just in different browsers at the same time. Since &lt;code&gt;v0.7&lt;/code&gt; however there is a new feature that allows the tests to be run in parallel. From &lt;a href=&#34;http://nightwatchjs.org/guide#parallel-running&#34;&gt;NightwatchJS Parallel Running&lt;/a&gt; documentation:&lt;/p&gt;
@@ -70,20 +70,20 @@
     
     <item>
       <title>About</title>
-      <link>http://dimchez.com/about/</link>
+      <link>https://dimchez.com/about/</link>
       <pubDate>Fri, 18 Mar 2016 06:44:23 +0100</pubDate>
       
-      <guid>http://dimchez.com/about/</guid>
+      <guid>https://dimchez.com/about/</guid>
       <description>&lt;p&gt;Some words about me.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Using babel-polyfill with Karma, Webpack and ES6</title>
-      <link>http://dimchez.com/blog/using-babel-polyfill-with-karma-webpack-and-es6/</link>
+      <link>https://dimchez.com/blog/using-babel-polyfill-with-karma-webpack-and-es6/</link>
       <pubDate>Thu, 17 Mar 2016 20:41:55 +0100</pubDate>
       
-      <guid>http://dimchez.com/blog/using-babel-polyfill-with-karma-webpack-and-es6/</guid>
+      <guid>https://dimchez.com/blog/using-babel-polyfill-with-karma-webpack-and-es6/</guid>
       <description>
 
 &lt;h1 id=&#34;enabling-babel-polyfill-when-running-unit-tests-using-karma-phantomjs-webpack-and-es6:3ee0811567a12162673656903c4fad16&#34;&gt;Enabling babel-polyfill when running unit tests using Karma, PhantomJS, Webpack and ES6&lt;/h1&gt;

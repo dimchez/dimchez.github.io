@@ -2,33 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://dimchez.com/</loc>
+    <loc>https://dimchez.com/</loc>
     <lastmod>2016-03-21T21:43:24+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://dimchez.com/blog/ssl-for-the-blog/</loc>
+    <loc>https://dimchez.com/blog/ssl-for-the-blog/</loc>
     <lastmod>2016-03-21T21:43:24+01:00</lastmod>
   </url>
   
   <url>
-    <loc>http://dimchez.com/blog/mocha-junit-reporter-pull-request/</loc>
+    <loc>https://dimchez.com/blog/mocha-junit-reporter-pull-request/</loc>
     <lastmod>2016-03-19T09:43:30+01:00</lastmod>
   </url>
   
   <url>
-    <loc>http://dimchez.com/blog/running-parallel-end-to-end-tests-in-nightwatchjs-with-mocha-junit-reporter/</loc>
+    <loc>https://dimchez.com/blog/running-parallel-end-to-end-tests-in-nightwatchjs-with-mocha-junit-reporter/</loc>
     <lastmod>2016-03-18T10:18:43+01:00</lastmod>
   </url>
   
   <url>
-    <loc>http://dimchez.com/about/</loc>
+    <loc>https://dimchez.com/about/</loc>
     <lastmod>2016-03-18T06:44:23+01:00</lastmod>
   </url>
   
   <url>
-    <loc>http://dimchez.com/blog/using-babel-polyfill-with-karma-webpack-and-es6/</loc>
+    <loc>https://dimchez.com/blog/using-babel-polyfill-with-karma-webpack-and-es6/</loc>
     <lastmod>2016-03-17T20:41:55+01:00</lastmod>
   </url>
   
