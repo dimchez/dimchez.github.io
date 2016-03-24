@@ -6,8 +6,40 @@
     <description>Recent content in Blogs on Notes from day to day work</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 21 Mar 2016 21:43:24 +0100</lastBuildDate>
+    <lastBuildDate>Thu, 24 Mar 2016 14:10:00 +0100</lastBuildDate>
     <atom:link href="https://dimchez.com/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>ES6 generators and infinite lists</title>
+      <link>https://dimchez.com/blog/es6-generators-and-infinite-lists/</link>
+      <pubDate>Thu, 24 Mar 2016 14:10:00 +0100</pubDate>
+      
+      <guid>https://dimchez.com/blog/es6-generators-and-infinite-lists/</guid>
+      <description>&lt;p&gt;For the past couple days I&amp;rsquo;ve been working on a WebSocket server using &lt;a href=&#34;https://www.npmjs.com/package/express-ws&#34;&gt;express-ws&lt;/a&gt;. While developing locally I needed a way to mock &lt;a href=&#34;https://api.test.nordnet.se/projects/api/wiki/Feed_API_documentation&#34;&gt;public and private feeds&lt;/a&gt; that our &lt;a href=&#34;https://api.test.nordnet.se/&#34;&gt;API&lt;/a&gt; provides. Since we are already using mock API server while developing locally, having a mock WebSocket server seemed like a good addition.&lt;/p&gt;
+
+&lt;p&gt;WebSocket server should allow client application(s) to login and send subscribe/unsubscribe commands. Once client subscribes to e.g. instrument price feed it should be getting periodic updates to emulate changing last price and tick timestamp (and possibly other fields as well). Well, setting &lt;code&gt;setInterval()&lt;/code&gt; on each subscription is not a problem. Then I needed a good way to send initial message to the client and generate new price value every time &lt;code&gt;setInterval()&lt;/code&gt; callback executes. First I wanted to return some sort of object representing price feed message and let it have &lt;code&gt;mutate()&lt;/code&gt; method that would update its values. Seemed wrong way to do it. Another option is to have an initial message and pass it to separate &lt;code&gt;mutate()&lt;/code&gt; function that should be pure and should return new instance with new values. Better, but still something was itching in the back of my brain. And then I realized that what I was looking for was &lt;a href=&#34;https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/function*&#34;&gt;generators&lt;/a&gt;. This is the code I ended up with for now:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;export function* price(instrument) {
+  const message = initialMessage(instrument);
+  while (true) {
+    yield message;
+    message.data = mutate(message.data);
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I should probably refactor it to generate new instance of &lt;code&gt;message&lt;/code&gt; instead of only replacing &lt;code&gt;data&lt;/code&gt; property, but that can be done later. Code that uses that generator is quite simple as well:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;const prices = price(message.args);
+client(prices.next().value);
+subscriptions[key] = interval(() =&amp;gt; client(prices.next().value), 1000);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Where &lt;code&gt;client&lt;/code&gt; is a wrapper around &lt;code&gt;ws.send()&lt;/code&gt; and &lt;code&gt;interval&lt;/code&gt; is a wrapper around &lt;code&gt;setInterval()&lt;/code&gt; that returns a callback for clearing that interval.&lt;/p&gt;
+
+&lt;p&gt;So far I&amp;rsquo;m quite happy with implementation and how generators allowed me to solve periodic price updates problem. Essentially, I&amp;rsquo;ve ended up with implementation of an infinite list. I should try using them more in other projects. I guess a good experiment would be replacing promises with generators for async behavior.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>SSL for the blog</title>

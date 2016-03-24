@@ -13,10 +13,10 @@
 <title>
 
 
-     SSL for the blog 
+     ES6 generators and infinite lists 
 
 </title>
-<link rel="canonical" href="https://dimchez.com/blog/ssl-for-the-blog/">
+<link rel="canonical" href="https://dimchez.com/blog/es6-generators-and-infinite-lists/">
 
 
 <script type="text/javascript">
@@ -112,21 +112,41 @@
                 <div class="title-container">
                     <div class="page-heading">
 
-    SSL for the blog
+    ES6 generators and infinite lists
 
 </div>
 
                     <div class="initials"><a href="https://dimchez.com"></a></div>
                 </div>
                 <div class="meta">
-                    <div class="date" title="Mon, Mar 21, 2016">Mon, Mar 21, 2016</div>
-                    <div class="reading-time"><div class="middot"></div>1 minute read</div>
+                    <div class="date" title="Thu, Mar 24, 2016">Thu, Mar 24, 2016</div>
+                    <div class="reading-time"><div class="middot"></div>2 minutes read</div>
                 </div>
             </div>
             <div class="markdown">
-                <p>I&rsquo;ve decided that it would be good to have this blog running on <code>https://</code> instead of plain <code>http://</code>. A friend of mine, <a href="https://twitter.com/iamstarkov">Vladimir Starkov</a>, suggested to look into <a href="https://www.cloudflare.com">Cloudfare</a>.</p>
+                <p>For the past couple days I&rsquo;ve been working on a WebSocket server using <a href="https://www.npmjs.com/package/express-ws">express-ws</a>. While developing locally I needed a way to mock <a href="https://api.test.nordnet.se/projects/api/wiki/Feed_API_documentation">public and private feeds</a> that our <a href="https://api.test.nordnet.se/">API</a> provides. Since we are already using mock API server while developing locally, having a mock WebSocket server seemed like a good addition.</p>
 
-<p>Setting up <code>https://</code> turned out to be a rather simple task. I&rsquo;ve followed <a href="https://www.benburwell.com/posts/configuring-cloudflare-universal-ssl/">this</a> and <a href="https://support.cloudflare.com/hc/en-us/articles/200171566-How-do-I-change-my-domain-nameservers-GoDaddy-">this</a> guides to get the job done. It seems that some of the configuration options at least on GoDaddy are sort of hidden away. At least I didn&rsquo;t see at first where to change nameservers. Well, I guess that&rsquo;s just because I&rsquo;m really not familiar with their admin panel. Cloudfare&rsquo;s UI is rather nice compared to GoDaddy though. I&rsquo;ve found all I needed to find there quite fast.</p>
+<p>WebSocket server should allow client application(s) to login and send subscribe/unsubscribe commands. Once client subscribes to e.g. instrument price feed it should be getting periodic updates to emulate changing last price and tick timestamp (and possibly other fields as well). Well, setting <code>setInterval()</code> on each subscription is not a problem. Then I needed a good way to send initial message to the client and generate new price value every time <code>setInterval()</code> callback executes. First I wanted to return some sort of object representing price feed message and let it have <code>mutate()</code> method that would update its values. Seemed wrong way to do it. Another option is to have an initial message and pass it to separate <code>mutate()</code> function that should be pure and should return new instance with new values. Better, but still something was itching in the back of my brain. And then I realized that what I was looking for was <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/function*">generators</a>. This is the code I ended up with for now:</p>
+
+<pre><code>export function* price(instrument) {
+  const message = initialMessage(instrument);
+  while (true) {
+    yield message;
+    message.data = mutate(message.data);
+  }
+}
+</code></pre>
+
+<p>I should probably refactor it to generate new instance of <code>message</code> instead of only replacing <code>data</code> property, but that can be done later. Code that uses that generator is quite simple as well:</p>
+
+<pre><code>const prices = price(message.args);
+client(prices.next().value);
+subscriptions[key] = interval(() =&gt; client(prices.next().value), 1000);
+</code></pre>
+
+<p>Where <code>client</code> is a wrapper around <code>ws.send()</code> and <code>interval</code> is a wrapper around <code>setInterval()</code> that returns a callback for clearing that interval.</p>
+
+<p>So far I&rsquo;m quite happy with implementation and how generators allowed me to solve periodic price updates problem. Essentially, I&rsquo;ve ended up with implementation of an infinite list. I should try using them more in other projects. I guess a good experiment would be replacing promises with generators for async behavior.</p>
 
                 <br>
                 <p><a href="/blog/">Back to posts</a></p>
