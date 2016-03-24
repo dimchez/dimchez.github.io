@@ -1,4 +1,4 @@
-baseUrl = "http://dimchez.com"
+baseUrl = "https://dimchez.com"
 languageCode = "en-us"
 title = "Notes from day to day work"
 theme = "cocoa"
