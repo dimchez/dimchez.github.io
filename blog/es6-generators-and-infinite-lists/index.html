@@ -31,9 +31,9 @@
 
 
 
-<link rel="stylesheet" href="/css/reset.css?1458825169">
-<link rel="stylesheet" href="/css/pygments.css?1458825169">
-<link rel="stylesheet" href="/css/main.css?1458825169">
+<link rel="stylesheet" href="/css/reset.css?1458825540">
+<link rel="stylesheet" href="/css/pygments.css?1458825540">
+<link rel="stylesheet" href="/css/main.css?1458825540">
 
 
 
@@ -126,7 +126,7 @@
             <div class="markdown">
                 <p>For the past couple days I&rsquo;ve been working on a WebSocket server using <a href="https://www.npmjs.com/package/express-ws">express-ws</a>. While developing locally I needed a way to mock <a href="https://api.test.nordnet.se/projects/api/wiki/Feed_API_documentation">public and private feeds</a> that our <a href="https://api.test.nordnet.se/">API</a> provides. Since we are already using mock API server while developing locally, having a mock WebSocket server seemed like a good addition.</p>
 
-<p>WebSocket server should allow client application(s) to login and send subscribe/unsubscribe commands. Once client subscribes to e.g. instrument price feed it should be getting periodic updates to emulate changing last price and tick timestamp (and possibly other fields as well). Well, setting <code>setInterval()</code> on each subscription is not a problem. Then I needed a good way to send initial message to the client and generate new price value every time <code>setInterval()</code> callback executes. First I wanted to return some sort of object representing price feed message and let it have <code>mutate()</code> method that would update its values. Seemed wrong way to do it. Another option is to have an initial message and pass it to separate <code>mutate()</code> function that should be pure and should return new instance with new values. Better, but still something was itching in the back of my brain. And then I realized that what I was looking for was <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/function*">generators</a>. This is the code I ended up with for now:</p>
+<p>WebSocket server should allow client application(s) to login and send subscribe/unsubscribe commands. Once client subscribes to e.g. instrument price feed it should start receiving periodic updates to emulate changing last price and tick timestamp (and possibly other fields as well). Well, setting <code>setInterval()</code> on each subscription is not a problem. Then I needed a good way to send initial message to the client and generate new price value every time <code>setInterval()</code> callback executes. First I wanted to return some sort of object representing price feed message and let it have <code>mutate()</code> method that would update its values. Seemed like a wrong way to do it. Another option is to pass initial message to separate <code>mutate()</code> function that should be pure and would return new message instance with new values. Better, but still something was itching in the back of my head. And then I realized that what I was looking for was <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/function*">generators</a>. This is the code I ended up with for now:</p>
 
 <pre><code>export function* price(instrument) {
   const message = initialMessage(instrument);
