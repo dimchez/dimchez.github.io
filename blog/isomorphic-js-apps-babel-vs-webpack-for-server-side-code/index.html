@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Notes from day to day work">
+
+<base href="https://dimchez.com">
+<title>
+
+
+     Isomorphic JS apps: Babel vs Webpack for server-side code 
+
+</title>
+<link rel="canonical" href="https://dimchez.com/blog/isomorphic-js-apps-babel-vs-webpack-for-server-side-code/">
+
+
+<script type="text/javascript">
+    var baseURL = 'https:\/\/dimchez.com';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="/css/reset.css?1459627977">
+<link rel="stylesheet" href="/css/pygments.css?1459627977">
+<link rel="stylesheet" href="/css/main.css?1459627977">
+
+
+
+
+
+
+<link rel="shortcut icon"
+
+    href="img/favicon.ico"
+
+>
+
+
+
+</head>
+
+
+<body lang="">
+
+<section class="header">
+    <div class="container">
+        <div class="content">
+            <a href="/"><div class="name">Dmitry Demyankov</div></a>
+            <nav>
+                <ul>
+                    <a href="/blog/"><li>Blog</li></a>
+                    <a href="/about/"><li>About</li></a>
+                    <a href="/code/"><li>Code</li></a>
+                    <a href="/index.xml"><li>RSS</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/dimchez" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+
+        
+            <a href="//twitter.com/dimchez" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/dmitry-demyankov-70261754" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+            <a href="mailto:dmitry.demyankov@gmail.com">
+                <i class="icon ion-ios-email larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Isomorphic JS apps: Babel vs Webpack for server-side code
+
+</div>
+
+                    <div class="initials"><a href="https://dimchez.com"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Sat, Apr 2, 2016">Sat, Apr 2, 2016</div>
+                    <div class="reading-time"><div class="middot"></div>3 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p>For quite some time now I&rsquo;ve been researching different approaches to creating isomorphic JS applications. There are quite many starter projects on GitHub. Some of them are quite complicated and try to have a solution for every single possible use case. This results in overly complicated setup and steep learning curve to get familiar with the project. Other projects provide only rather basic setup and require a lot of extra work to get them to production like quality.</p>
+
+<p>When it comes to building and bundling client-side code, <a href="webpack.github.io">Webpack</a> would be quite a common choice. Lots of plugins, extremely flexible setup, loaders for different file types - all this makes Webpack a good choice as a module bundler for client-side code. On the other hand, Webpack configuration tends to become quite complicated as the project grows. Nonetheless, I see handling of client-side code as simple, but not necessarily easy task.</p>
+
+<p>Handling of server-side code for isomorphic apps doesn&rsquo;t seem all that straightforward to me. Many of isomorphic js applications that I&rsquo;ve looked at on Github are using Webpack for building and bundling server-side as well as client-side code. And this is something I don&rsquo;t completely agree with.</p>
+
+<p>From one point of view, it&rsquo;s good to have one tool for both client-side and server-side code. Webpack configs for server-side and client-side are still quite different though and tend to get rather complex. But I guess the benefit of using such setup is in having the same approach for handling both client-side and server-side code. What I don&rsquo;t really like though is that server-side code ends up bundled in one file instead of keeping clean folder structure. For client-side there&rsquo;s no option other than building a bundle, but server-side code running in Node doesn&rsquo;t have to end up with lots of Webpack specific code bundled as one file.</p>
+
+<p>An alternative approach that I think is not that common is handling client-side code with Webpack, but using only <a href="babeljs.io">Babel</a> for the server-side code. This allows server-side code to keep initial folder structure instead of being bundled into one single file. Also with packages like <a href="https://www.npmjs.com/package/babel-preset-es2015-node4">babel-preset-es2015-node4</a> and <a href="https://www.npmjs.com/package/babel-preset-es2015-node5">babel-preset-es2015-node5</a> it is possible to transpile from ES6 to ES5 only those features that are missing in either Node 4.x or 5.x. Of course, these presets could be used within Webpack build as well.</p>
+
+<p>Anyway, right now I&rsquo;m leaning towards using only Babel for server-side code. This approach seems cleaner. But for it to be a fair choice based on good reasons and not a gut feeling there has to be some solid comparisons e.g. of performance and/or code and configuration complexity. I&rsquo;m not sure I will have time for those. I think if I&rsquo;ll manage to find good solutions for most of the issues related to isomorphic apps (e.g. handling styles, images, i18n and l10n, routing) then I&rsquo;ll just keep using Babel for server-side code and Webpack (with babel-loader) for client-side code.</p>
+
+                <br>
+                <p><a href="/blog/">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-75294098-1");
+    pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+
+
+</body>
+</html>
+
