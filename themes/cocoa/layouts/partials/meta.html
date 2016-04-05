@@ -3,4 +3,5 @@
 <meta name="HandheldFriendly" content="True">
 <meta name="MobileOptimized" content="320">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{{ if .Site.Params.GoogleSiteVerification }}<meta name="google-site-verification" content="{{ .Site.Params.GoogleSiteVerification }}">{{ end }}
 {{ if .Site.Params.Description }}<meta name="description" content="{{ .Site.Params.Description }}">{{ end }}
