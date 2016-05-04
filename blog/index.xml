@@ -6,8 +6,24 @@
     <description>Recent content in Blogs on Notes from day to day work</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 02 Apr 2016 19:07:56 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 04 May 2016 15:03:46 +0200</lastBuildDate>
     <atom:link href="https://dimchez.com/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>StockholmJS meetup talk - Workflow Driven Development</title>
+      <link>https://dimchez.com/blog/stockholmjs-meetup-talk---workflow-driven-development/</link>
+      <pubDate>Wed, 04 May 2016 15:03:46 +0200</pubDate>
+      
+      <guid>https://dimchez.com/blog/stockholmjs-meetup-talk---workflow-driven-development/</guid>
+      <description>&lt;p&gt;Couple days ago I gave my first ever talk at &lt;a href=&#34;http://www.meetup.com/sthlm-js/events/230511628/&#34;&gt;StockholmJS&lt;/a&gt; meetup. Topic was &amp;ldquo;&lt;em&gt;Workflow Driven Development&lt;/em&gt;&amp;rdquo;. It is about architectural choices we&amp;rsquo;ve made for our new frontend at &lt;a href=&#34;https://www.nordnet.se&#34;&gt;Nordnet&lt;/a&gt; and why we did them. It was great to see how ideas we have for our frontend architecture are also interesting to other developers. I&amp;rsquo;ve got some good feedback and interesting questions afterwards.&lt;/p&gt;
+
+&lt;p&gt;Slides for the talk could be found here - &lt;a href=&#34;http://www.slideshare.net/DmitryDemyankov/workflow-driven-development&#34;&gt;Workflow Driven Development&lt;/a&gt;. Maybe there&amp;rsquo;s even going to be a video of my talk later.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://dimchez.com/img/stockholmjs.jpg&#34; alt=&#34;StockholmJS meetup&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;P.S. Maybe I shouldn&amp;rsquo;t take beer on stage next time.. :P&lt;/em&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Isomorphic JS apps: Babel vs Webpack for server-side code</title>
